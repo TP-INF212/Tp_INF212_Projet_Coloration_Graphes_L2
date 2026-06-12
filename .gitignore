@@ -1,0 +1,9 @@
+# Ignorer le dossier d'environnement
+venv/
+
+# Ignorer le dossier git
+.git/
+
+# Ignorer les fichiers d'environnement ou systeme
+.idea/
+__*
