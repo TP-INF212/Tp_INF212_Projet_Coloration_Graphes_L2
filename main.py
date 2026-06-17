@@ -1,17 +1,14 @@
 """
-main.py — Application Console : Planification d'Examens par Coloration de Graphes
-Université de Yaoundé I — L2 Informatique — Théorie des Graphes 2025-2026
-
 Menu principal :
-  1. Afficher les ressources chargées
-  2. Construire & visualiser le graphe de conflits
-  3. Colorier le graphe (Welsh-Powell / DSATUR / Les deux)
-  4. Générer le planning physique
-  5. Rapport d'audit
-  6. Exporter (CSV + TXT)
-  7. Benchmark comparatif WP vs DSATUR
-  8. Gestion des ressources (CRUD léger)
-  9. Quitter
+    1. Afficher les ressources chargées
+    2. Construire & visualiser le graphe de conflits
+    3. Colorier le graphe (Welsh-Powell / DSATUR / Les deux)
+    4. Générer le planning physique
+    5. Rapport d'audit
+    6. Exporter (CSV + TXT)
+    7. Benchmark comparatif WP vs DSATUR
+    8. Gestion des ressources (CRUD léger)
+    9. Quitter
 """
 
 from __future__ import annotations
@@ -32,37 +29,73 @@ class AppState:
     """Conteneur mutable de l'état de session."""
 
     def __init__(self):
-        donnees = charger_donnees_defaut()
-        self.enseignants:   list[Enseignant]        = donnees["enseignants"]
-        self.etudiants:     list[Etudiant]           = donnees["etudiants"]
-        self.ues:           list[UE]                 = donnees["ues"]
-        self.salles:        list[Salle]              = donnees["salles"]
-        self.periode:       Periode                  = donnees["periode"]
-        self.interdictions: list[tuple[UE, UE]]      = donnees["interdictions"]
+        self.enseignants: list[Enseignant] = []
+        self.etudiants: list[Etudiant] = []
+        self.ues: list[UE] = []
+        self.salles: list[Salle] = []
+        self.periode: Periode | None = None
+        self.interdictions: list[tuple[UE, UE]] = []
 
         # Résultats calculés (mis à jour au fil des actions)
-        self.graphe:        GrapheConflits | None    = None
-        self.coloration_wp: dict[UE, int] | None     = None
-        self.coloration_ds: dict[UE, int] | None     = None
+        self.graphe: GrapheConflits | None = None
+        self.coloration_wp: dict[UE, int] | None = None
+        self.coloration_ds: dict[UE, int] | None = None
         self.coloration_active: dict[UE, int] | None = None
-        self.algo_actif:    str                      = ""
-        self.generateur:    GenerateurPlanning | None = None
-        self.planning:      list[EntreePlanning]     = []
+        self.algo_actif: str = ""
+        self.generateur: GenerateurPlanning | None = None
+        self.planning: list[EntreePlanning] = []
+
+    def charger_donnees(self):
+        donnees = charger_donnees_defaut()
+        self.enseignants: list[Enseignant] = donnees["enseignants"]
+        self.etudiants: list[Etudiant] = donnees["etudiants"]
+        self.ues: list[UE] = donnees["ues"]
+        self.salles: list[Salle] = donnees["salles"]
+        self.periode: Periode | None = donnees["periode"]
+        self.interdictions: list[tuple[UE, UE]] = donnees["interdictions"]
+
+        ue_text = "UE" if len(self.ues) == 1 else "UEs"
+        print("\n ✅ Données chargées avec succès :\n")
+        print(f"    • {len(self.ues)} {ue_text}")
+        print(f"    • {len(self.enseignants)} enseignants")
+        print(f"    • {len(self.etudiants)} étudiants")
+        print(f"    • {len(self.salles)} salles")
+        print(f"    • Période : {self.periode.nom}")
+        pause()
 
     def reset_planning(self):
         """Réinitialise les résultats calculés (graphe, colorations, planning)."""
-        self.graphe         = None
-        self.coloration_wp  = None
-        self.coloration_ds  = None
+        self.graphe = None
+        self.coloration_wp = None
+        self.coloration_ds = None
         self.coloration_active = None
-        self.algo_actif     = ""
-        self.generateur     = None
-        self.planning       = []
+        self.algo_actif = ""
+        self.generateur = None
+        self.planning = []
+
+    def reset_all(self):
+        self.enseignants = []
+        self.etudiants = []
+        self.ues = []
+        self.salles = []
+        self.interdictions = []
+
+        self.graphe = None
+        self.coloration_wp = None
+        self.coloration_ds = None
+        self.coloration_active = None
+        self.algo_actif = ""
+        self.generateur = None
+        self.planning = []
 
 
-# ╔══════════════════════════════════════════════════════════════════════════╗
-# ║                           UTILITAIRES UI                                ║
-# ╚══════════════════════════════════════════════════════════════════════════╝
+def prompt() -> str:
+    return input("\n  -> Votre choix : ").strip()
+
+
+def choix_invalide() -> None:
+    print("\t\t⚠️  Choix invalide.")
+
 
 def effacer() -> None:
     os.system("cls" if os.name == "nt" else "clear")
@@ -80,7 +113,23 @@ def sous_titre(texte: str) -> None:
 
 
 def pause() -> None:
-    input("\n  [Appuyez sur Entrée pour continuer…]")
+
+    import sys
+
+    prompt = "\n  [Appuyez sur Entrée pour continuer…]"
+    # 1. On nettoie le tampon du terminal pour supprimer les résidus de saisie
+    try:
+        # Pour Windows
+        import msvcrt
+        while msvcrt.kbhit():
+            msvcrt.getch()
+    except ImportError:
+        # Pour Linux / macOS
+        import termios
+        termios.tcflush(sys.stdin, termios.TCIFLUSH)
+
+    # 2. Maintenant que le tampon est propre, un SEUL input() fonctionnera à coup sûr
+    input(prompt)
 
 
 def saisie_entier(invite: str, min_val: int = 0, max_val: int = 9999) -> int | None:
@@ -121,14 +170,9 @@ def choisir_enseignant(app: AppState) -> Enseignant | None:
     return app.enseignants[idx - 1] if idx is not None else None
 
 
-# ╔══════════════════════════════════════════════════════════════════════════╗
-# ║                        SECTIONS DU MENU                                 ║
-# ╚══════════════════════════════════════════════════════════════════════════╝
-
-# ── 1. Afficher les ressources ──────────────────────────────────────────────
-
+# 1. Afficher les ressources
 def afficher_ressources(app: AppState) -> None:
-    titre("📋  RESSOURCES CHARGÉES")
+    titre("📋  RESSOURCES ")
 
     sous_titre("Période")
     print(f"  {app.periode}")
@@ -145,7 +189,7 @@ def afficher_ressources(app: AppState) -> None:
     print(f"  {'Code':<12} {'Intitulé':<32} {'Filière':<6} {'Eff.':>5}  {'Labo':<5}  Enseignant")
     print("  " + "─" * 78)
     for ue in app.ues:
-        labo = "✓" if ue.necessite_labo else "x"
+        labo = "  ✓" if ue.necessite_labo else "  x"
         print(f"  {ue.code:<12} {ue.intitule[:30]:<32} {ue.filiere:<6} "
               f"{ue.effectif():>5}  {labo:<5}  {ue.enseignant}")
 
@@ -153,7 +197,7 @@ def afficher_ressources(app: AppState) -> None:
     print(f"  {'Label':<14} {'Capacité':>8}  Type")
     print("  " + "─" * 34)
     for s in app.salles:
-        typ = "🖥️  Labo" if s.est_labo else "🏛️  Normal"
+        typ = "🖥️  Labo" if s.est_labo else "🏛️  Standard"
         print(f"  {s.label:<14} {s.capacite:>8}  {typ}")
 
     sous_titre(f"Interdictions inter-UE ({len(app.interdictions)})")
@@ -166,77 +210,74 @@ def afficher_ressources(app: AppState) -> None:
     pause()
 
 
-# ── 2. Construire & visualiser le graphe ────────────────────────────────────
-
+# 2. Construire & visualiser le graphe
 def construire_graphe(app: AppState) -> None:
     titre("📐  CONSTRUCTION DU GRAPHE DE CONFLITS")
-
-    if not app.ues:
-        print("  ⚠️  Aucune UE disponible. Ajoutez des UE d'abord.")
-        pause()
-        return
 
     print("  Construction en cours…")
     app.graphe = GrapheConflits(app.ues)
     app.graphe.afficher_statistiques()
 
-    sous_titre("Matrice d'adjacence")
+    print("\n" + "═" * 60)
+    print("  📐 Matrice d'adjacence")
+    print("═" * 60)
     app.graphe.afficher_matrice()
 
-    sous_titre("Options de visualisation")
-    print("  [1] Générer la cartographie PNG du graphe (sans coloration)")
+    print("\n  [1] Imprimer le graphe au format PNG (sans coloration)")
     print("  [2] Revenir au menu principal")
-    choix = input("  Votre choix : ").strip()
 
-    if choix == "1":
-        chemin = "output/graphe_(sans_coloration).png"
-        app.graphe.visualiser(fichier=chemin, titre="Graphe de Conflits — Sans Coloration")
-        print(f"  ✅ Image sauvegardée : {chemin}")
+    while True:
+        choix = prompt()
 
-    pause()
+        if choix == "1":
+            chemin = "output/images/graphe_(sans_coloration).png"
+            app.graphe.visualiser(fichier=chemin, titre="Graphe de Conflits — Sans Coloration")
+            print(f"\t  ✅ Image sauvegardée : {chemin}")
+            pause()
+            break
+        elif choix == "2":
+            break
+        else:
+            choix_invalide()
 
 
-# ── 3. Coloration ────────────────────────────────────────────────────────────
-
+# 3. Coloration
 def colorier_graphe(app: AppState) -> None:
     titre("🎨  COLORATION DU GRAPHE")
-
-    if app.graphe is None:
-        print("  ⚠️  Graphe non construit. Exécutez d'abord l'option 2.")
-        pause()
-        return
 
     print("  [1] Welsh-Powell")
     print("  [2] DSATUR")
     print("  [3] Les deux (et choisir le meilleur)")
     print("  [0] Retour")
-    choix = input("  Votre choix : ").strip()
+    choix = prompt()
 
     if choix == "0":
         return
 
-    if choix in ("1", "3"):
-        print("\n  → Welsh-Powell…")
+    elif choix == "1":
         app.coloration_wp = ColoriageAlgorithmes.welsh_powell(app.graphe)
         ColoriageAlgorithmes.afficher_coloration(
             app.coloration_wp, app.graphe, "Welsh-Powell"
         )
         ok = ColoriageAlgorithmes.verifier_coloration(app.graphe, app.coloration_wp)
         if ok:
+            app.coloration_active = app.coloration_wp
+            app.algo_actif = "Welsh-Powell"
             print(f"  Créneaux requis (WP) : {max(app.coloration_wp.values()) + 1}")
 
-    if choix in ("2", "3"):
-        print("\n  → DSATUR…")
+    elif choix == "2":
         app.coloration_ds = ColoriageAlgorithmes.dsatur(app.graphe)
         ColoriageAlgorithmes.afficher_coloration(
             app.coloration_ds, app.graphe, "DSATUR"
         )
         ok = ColoriageAlgorithmes.verifier_coloration(app.graphe, app.coloration_ds)
         if ok:
+            app.coloration_active = app.coloration_ds
+            app.algo_actif = "DSATUR"
             print(f"  Créneaux requis (DS) : {max(app.coloration_ds.values()) + 1}")
 
     # Sélectionner la coloration active
-    if choix == "3":
+    elif choix == "3":
         nb_wp = max(app.coloration_wp.values()) + 1
         nb_ds = max(app.coloration_ds.values()) + 1
         if nb_ds <= nb_wp:
@@ -247,20 +288,15 @@ def colorier_graphe(app: AppState) -> None:
             app.coloration_active = app.coloration_wp
             app.algo_actif = "Welsh-Powell"
             print(f"\n  💡 Welsh-Powell sélectionné automatiquement ({nb_wp} créneaux < {nb_ds} DS).")
-    elif choix == "1":
-        app.coloration_active = app.coloration_wp
-        app.algo_actif = "Welsh-Powell"
-    elif choix == "2":
-        app.coloration_active = app.coloration_ds
-        app.algo_actif = "DSATUR"
 
     if app.coloration_active and saisie_bool("\n  Générer la cartographie PNG colorée ?"):
-        chemin = f"output/graphe_{app.algo_actif.lower().replace('-', '_')}.png"
+        chemin = f"output/images/graphe_{app.algo_actif.lower().replace('-', '_')}.png"
         app.graphe.visualiser(
             coloration=app.coloration_active,
             fichier=chemin,
             titre=f"Graphe de Conflits Coloré — {app.algo_actif}",
         )
+        print(f"\t  ✅ Image sauvegardée : {chemin}")
 
     # Réinitialiser le planning si la coloration change
     app.generateur = None
@@ -269,8 +305,7 @@ def colorier_graphe(app: AppState) -> None:
     pause()
 
 
-# ── 4. Générer le planning physique ─────────────────────────────────────────
-
+# 4. Générer le planning physique
 def generer_planning(app: AppState) -> None:
     titre("📅  GÉNÉRATION DU PLANNING PHYSIQUE")
 
@@ -280,7 +315,7 @@ def generer_planning(app: AppState) -> None:
         return
 
     nb_creneaux_requis = max(app.coloration_active.values()) + 1
-    nb_creneaux_dispo  = len(app.periode.obtenir_tous_creneaux())
+    nb_creneaux_dispo = len(app.periode.obtenir_tous_creneaux())
     print(f"  Coloration active : {app.algo_actif}")
     print(f"  Créneaux requis   : {nb_creneaux_requis}")
     print(f"  Créneaux disponibles : {nb_creneaux_dispo}")
@@ -311,8 +346,7 @@ def generer_planning(app: AppState) -> None:
     pause()
 
 
-# ── 5. Rapport d'audit ───────────────────────────────────────────────────────
-
+# 5. Rapport d'audit
 def rapport_audit(app: AppState) -> None:
     titre("🔍  RAPPORT D'AUDIT")
 
@@ -333,8 +367,7 @@ def rapport_audit(app: AppState) -> None:
     pause()
 
 
-# ── 6. Exportation ───────────────────────────────────────────────────────────
-
+# 6. Exportation
 def exporter(app: AppState) -> None:
     titre("💾  EXPORTATION DES DONNÉES")
 
@@ -347,7 +380,7 @@ def exporter(app: AppState) -> None:
     print("  [2] Exporter en TXT   (output/planning_detail.txt)")
     print("  [3] Les deux")
     print("  [0] Retour")
-    choix = input("  Votre choix : ").strip()
+    choix = prompt()
 
     if choix in ("1", "3"):
         app.generateur.exporter_csv("output/planning.csv")
@@ -359,8 +392,7 @@ def exporter(app: AppState) -> None:
         pause()
 
 
-# ── 7. Benchmark ─────────────────────────────────────────────────────────────
-
+# 7. Benchmark
 def benchmark(app: AppState) -> None:
     titre("⏱️   BENCHMARK COMPARATIF — WP vs DSATUR")
 
@@ -375,23 +407,24 @@ def benchmark(app: AppState) -> None:
     pause()
 
 
-# ── 8. Gestion des ressources (CRUD léger) ───────────────────────────────────
-
+# 8. Gestion des ressources (CRUD léger)
 def gestion_ressources(app: AppState) -> None:
     """Sous-menu de gestion des entités."""
+
     while True:
         titre("⚙️   GESTION DES RESSOURCES")
-        print("  [1]  Ajouter un enseignant")
-        print("  [2]  Ajouter un étudiant")
-        print("  [3]  Ajouter une UE")
-        print("  [4]  Ajouter une salle")
-        print("  [5]  Inscrire un étudiant à une UE")
-        print("  [6]  Ajouter un jour à la période")
-        print("  [7]  Ajouter une interdiction inter-UE")
-        print("  [8]  Supprimer une UE")
-        print("  [9]  Afficher le récapitulatif")
+        print("  [1]  Gestion des périodes")
+        print("  [2]  Gestion des UEs")
+        print("  [3]  Gestion des étudiants")
+        print("  [4]  Gestion des salles")
+        print("  [5]  Gestion des inscriptions")
+        print("  [6]  Gestion des interdictions")
+        print("  [7]  Afficher le récapitulatif")
+        print("  [8]  Charger les données par défaut")
+        print("  [9]  Réinitialiser les données")
         print("  [0]  Retour au menu principal")
-        choix = input("  Votre choix : ").strip()
+
+        choix = prompt()
 
         if choix == "0":
             break
@@ -415,21 +448,27 @@ def gestion_ressources(app: AppState) -> None:
             _ajouter_jour(app)
 
         elif choix == "7":
-            _ajouter_interdiction(app)
-
-        elif choix == "8":
-            _supprimer_ue(app)
-
-        elif choix == "9":
+            # _ajouter_interdiction(app)
             afficher_ressources(app)
 
+        elif choix == "8":
+            # _supprimer_ue(app)
+            app.charger_donnees()
+
+        elif choix == "9":
+            # afficher_ressources(app)
+            app.reset_all()
+
+        elif choix == "10":
+            # Reinitialisation des données completes :
+            app.reset_all()
         else:
-            print("  Choix invalide.")
+            choix_invalide()
 
 
 def _ajouter_enseignant(app: AppState) -> None:
     sous_titre("Nouvel enseignant")
-    nom    = input("  Nom    : ").strip()
+    nom = input("  Nom    : ").strip()
     prenom = input("  Prénom : ").strip()
     if nom and prenom:
         ens = Enseignant(nom.upper(), prenom.capitalize())
@@ -442,8 +481,8 @@ def _ajouter_enseignant(app: AppState) -> None:
 
 def _ajouter_etudiant(app: AppState) -> None:
     sous_titre("Nouvel étudiant")
-    mat    = input("  Matricule : ").strip()
-    nom    = input("  Nom       : ").strip()
+    mat = input("  Matricule : ").strip()
+    nom = input("  Nom       : ").strip()
     prenom = input("  Prénom    : ").strip()
     if mat and nom and prenom:
         # Vérifier unicité du matricule
@@ -490,7 +529,7 @@ def _ajouter_ue(app: AppState) -> None:
 
 def _ajouter_salle(app: AppState) -> None:
     sous_titre("Nouvelle salle")
-    label    = input("  Label    : ").strip().upper()
+    label = input("  Label    : ").strip().upper()
     capacite = saisie_entier("Capacité (nb places)", 1, 2000)
     est_labo = saisie_bool("  C'est un laboratoire informatique ?")
 
@@ -516,7 +555,7 @@ def _inscrire_etudiant_ue(app: AppState) -> None:
 
     print(f"\n  Étudiants disponibles (non encore inscrits à {ue.code}) :")
     deja_inscrits = {e.matricule for e in ue.etudiants}
-    disponibles   = [e for e in app.etudiants if e.matricule not in deja_inscrits]
+    disponibles = [e for e in app.etudiants if e.matricule not in deja_inscrits]
 
     if not disponibles:
         print("  Tous les étudiants sont déjà inscrits à cette UE.")
@@ -592,16 +631,12 @@ def _supprimer_ue(app: AppState) -> None:
     pause()
 
 
-# ╔══════════════════════════════════════════════════════════════════════════╗
-# ║                         MENU PRINCIPAL                                  ║
-# ╚══════════════════════════════════════════════════════════════════════════╝
-
 BANNIERE = r"""
-  ╔══════════════════════════════════════════════════════════════════════╗
-  ║   UNIVERSITÉ DE YAOUNDÉ I — DÉPARTEMENT D'INFORMATIQUE             ║
-  ║   Planification d'Examens par Coloration de Graphes                 ║
-  ║   L2 Informatique · Théorie des Graphes · 2025-2026                ║
-  ╚══════════════════════════════════════════════════════════════════════╝
+  ╔═════════════════════════════════════════════════════════════════════╗
+  ║        UNIVERSITÉ DE YAOUNDÉ I — DÉPARTEMENT D'INFORMATIQUE         ║
+  ║         Planification d'Examens par Coloration de Graphes           ║
+  ║                L2 Informatique · Théorie des Graphes                ║
+  ╚═════════════════════════════════════════════════════════════════════╝
 """
 
 
@@ -609,20 +644,20 @@ def afficher_menu(app: AppState) -> None:
     print(BANNIERE)
 
     # Indicateurs d'état rapides
-    graphe_ok  = "✅" if app.graphe            else "⬜"
-    color_ok   = "✅" if app.coloration_active else "⬜"
-    plan_ok    = "✅" if app.planning          else "⬜"
+    graphe_ok = "✅" if app.graphe else "⬜"
+    color_ok = "✅" if app.coloration_active else "⬜"
+    plan_ok = "✅" if app.planning else "⬜"
 
     print(f"  État : Graphe {graphe_ok}  |  Coloration {color_ok}"
           f"  [{app.algo_actif or '—'}]  |  Planning {plan_ok}"
           f"  [{len(app.planning)} entrées]")
     print(f"  UE: {len(app.ues)}  |  Salles: {len(app.salles)}"
-          f"  |  Période: {app.periode.nom} ({len(app.periode.obtenir_tous_creneaux())} créneaux)")
+          f"  |  Période: {app.periode.nom if app.periode else None} ({len(app.periode.obtenir_tous_creneaux()) if app.periode else 0} créneaux)")
 
     print()
     print("  ─────────────────────────────────────────────")
     print("  [1]  Afficher toutes les ressources")
-    print("  [2]  Construire & analyser le graphe de conflits")
+    print("  [2]  Construire & analyser le graphe")
     print("  [3]  Colorier le graphe (Welsh-Powell / DSATUR)")
     print("  [4]  Générer le planning physique")
     print("  [5]  Rapport d'audit du planning")
@@ -631,58 +666,6 @@ def afficher_menu(app: AppState) -> None:
     print("  [8]  Gestion des ressources (CRUD)")
     print("  ─────────────────────────────────────────────")
     print("  [0]  Quitter")
-    print()
-
-
-def workflow_complet(app: AppState) -> None:
-    """Lance automatiquement le workflow complet pour démonstration rapide."""
-    titre("🚀  WORKFLOW COMPLET AUTOMATIQUE")
-    print("  Étape 1/4 : Construction du graphe…")
-    app.graphe = GrapheConflits(app.ues)
-    app.graphe.afficher_statistiques()
-
-    print("\n  Étape 2/4 : Benchmark et sélection du meilleur algorithme…")
-    resultats = ColoriageAlgorithmes.benchmark(app.graphe, n_repetitions=10, verbose=True)
-
-    nb_wp = resultats["welsh_powell"]["nb_couleurs"]
-    nb_ds = resultats["dsatur"]["nb_couleurs"]
-    if nb_ds <= nb_wp:
-        app.coloration_active = resultats["dsatur"]["coloration"]
-        app.algo_actif = "DSATUR"
-    else:
-        app.coloration_active = resultats["welsh_powell"]["coloration"]
-        app.algo_actif = "Welsh-Powell"
-    app.coloration_wp = resultats["welsh_powell"]["coloration"]
-    app.coloration_ds = resultats["dsatur"]["coloration"]
-
-    print(f"\n  → Algorithme retenu : {app.algo_actif}")
-    ColoriageAlgorithmes.afficher_coloration(app.coloration_active, app.graphe, app.algo_actif)
-
-    print("\n  Étape 3/4 : Visualisation PNG…")
-    app.graphe.visualiser(
-        coloration=app.coloration_active,
-        fichier="output/graphe_conflits_colore.png",
-        titre=f"Graphe de Conflits — {app.algo_actif}",
-    )
-
-    print("\n  Étape 4/4 : Génération du planning physique…")
-    app.generateur = GenerateurPlanning(
-        coloration=app.coloration_active,
-        periode=app.periode,
-        salles=app.salles,
-        enseignants=app.enseignants,
-        interdictions=app.interdictions,
-    )
-    try:
-        app.planning = app.generateur.generer()
-        print(f"\n  ✅ Planning généré ({len(app.planning)} examens).")
-        app.generateur.exporter_csv("output/planning.csv")
-        app.generateur.exporter_planning_txt("output/planning_detail.txt")
-        print("\n" + app.generateur.rapport_audit())
-    except ValueError as e:
-        print(f"  ❌ {e}")
-
-    pause()
 
 
 def main() -> None:
@@ -691,22 +674,24 @@ def main() -> None:
     # Demander si l'utilisateur veut lancer le workflow complet au démarrage
     effacer()
     print(BANNIERE)
-    print("  Données par défaut chargées avec succès :")
-    print(f"    • {len(app.ues)} UE   • {len(app.enseignants)} enseignants")
-    print(f"    • {len(app.etudiants)} étudiants   • {len(app.salles)} salles")
-    print(f"    • Période : {app.periode.nom}")
     print()
-    print("  [D]  Lancer le workflow complet automatique (démo rapide)")
-    print("  [M]  Aller directement au menu principal")
-    choix_init = input("  Votre choix : ").strip().upper()
-    if choix_init == "D":
-        workflow_complet(app)
+    print("  [1]  Charger les données par défaut")
+    print("  [2]  Aller directement au menu principal")
+
+    while True:
+        choix_init = prompt()
+        if choix_init == "1":
+            app.charger_donnees()
+        elif choix_init != "2":
+            choix_invalide()
+            continue
+        break
 
     # Boucle principale
     while True:
         effacer()
         afficher_menu(app)
-        choix = input("  Votre choix : ").strip()
+        choix = prompt()
 
         if choix == "0":
             print("\n  Au revoir !  👋\n")
@@ -716,11 +701,15 @@ def main() -> None:
             afficher_ressources(app)
 
         elif choix == "2":
-            construire_graphe(app)
+            if not app.ues:
+                print("  ⚠️  Aucune UE disponible. Ajoutez d'abord des UEs.")
+                pause()
+            else:
+                construire_graphe(app)
 
         elif choix == "3":
             if app.graphe is None:
-                print("  ⚠️  Construisez d'abord le graphe (option 2).")
+                print("\n\t  ⚠️  Construisez d'abord le graphe (option 2).")
                 pause()
             else:
                 colorier_graphe(app)
@@ -741,7 +730,7 @@ def main() -> None:
             gestion_ressources(app)
 
         else:
-            print("  ⚠️  Choix invalide. Entrez un chiffre entre 0 et 8.")
+            choix_invalide()
             pause()
 
 

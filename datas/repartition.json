@@ -1,0 +1,46 @@
+{
+  "INF221": {
+    "enseignant": 1,
+    "etudiants": {"start": 0, "end": 25}
+  },
+  "INF231": {
+    "enseignant": 1,
+    "etudiants": {"start": 10, "end": 20}
+  },
+  "INF211": {
+    "enseignant": 3,
+    "etudiants": {"start": 21, "end": 35}
+  },
+  "INF251": {
+    "enseignant": 6,
+    "etudiants": {"start": 5, "end": 23}
+  },
+  "INF261": {
+    "enseignant": 5,
+    "etudiants": {"start": 15, "end": 33}
+  },
+  "INF241": {
+    "enseignant": 6,
+    "etudiants": {"start": 20, "end": 36}
+  },
+  "MAT211": {
+    "enseignant": 7,
+    "etudiants": {"start": 8, "end": 26}
+  },
+  "FBL211": {
+    "enseignant": 9,
+    "etudiants": {"start": 2, "end": 19}
+  },
+  "INF212": {
+    "enseignant": 5,
+    "etudiants": {"start":  30, "end":  40}
+  },
+  "MAT112": {
+    "enseignant": 3,
+    "etudiants": {"start": 0, "end": 5}
+  },
+  "PPE212": {
+    "enseignant": 4,
+    "etudiants": {"start": 5, "end":  9}
+  }
+}

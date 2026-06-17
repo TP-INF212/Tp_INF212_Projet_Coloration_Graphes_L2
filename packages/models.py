@@ -1,3 +1,7 @@
+import datetime
+import json
+
+
 class ViolationContrainteException(Exception):
     """Levée lorsqu'une contrainte obligatoire du planning est violée."""
 
@@ -56,7 +60,7 @@ class Etudiant:
         return hash(self.matricule)
 
     def __str__(self) -> str:
-        return f"{self.matricule} - {self.nom} {self.prenom} "
+        return f"({self.matricule}) {self.nom} {self.prenom} "
 
     def __repr__(self) -> str:
         return f"Etudiant('{self.matricule}')"
@@ -110,27 +114,19 @@ class UE:
         return self.code == other.code
 
 
-# Horaires réels associés à chaque index de créneau dans la journée
-HORAIRES_CRENEAUX = {
-    1: "07h30–09h30",
-    2: "10h00–12h00",
-    3: "13h00–15h00",
-    4: "15h30–17h30",
-}
-
-
 class Creneau:
     """
-    Représentation abstraite d'un créneau temporel.
-    jour_index    : numéro du jour dans la période (1-indexé).
-    index : position dans la journée, de 1 à 4 inclus.
+        Représentation abstraite d'un créneau temporel.
+        jour_index : numéro du jour dans la période (1-indexé).
+        index : position dans la journée, de 1 à 4 inclus.
     """
 
-    def __init__(self, jour_index: int, index_dans_jour: int):
+    def __init__(self, horaire: str, jour_index: int, index_dans_jour: int):
         if not (1 <= index_dans_jour <= 4):
             raise ValueError(
                 f"index doit être compris entre 1 et 4, reçu : {index_dans_jour}"
             )
+        self.horaire = horaire
         self.jour_index = jour_index
         self.index = index_dans_jour
 
@@ -160,17 +156,16 @@ class Creneau:
         return (self.jour_index, self.index) < (other.jour_index, other.index)
 
     def __str__(self) -> str:
-        horaire = HORAIRES_CRENEAUX.get(self.index, "??h??–??h??")
-        return f"Jour {self.jour_index:02d} | C{self.index} ({horaire})"
+        return f"Jour {self.jour_index:02d} | C{self.index} ({self.horaire})"
 
     def __repr__(self) -> str:
-        return f"Creneau(jour={self.jour_index}, idx={self.index})"
+        return f"Creneau(jour={self.jour_index}, idx={self.index}), horaire={self.horaire}"
 
 
 class Jour:
     """
-    Regroupe obligatoirement 4 objets Creneau représentant les plages
-    horaires disponibles dans une journée d'examen.
+        Regroupe obligatoirement 4 objets Creneau représentant les plages
+        horaires disponibles dans une journée d'examen.
     """
 
     def __init__(self, date: str, jour_index: int = 0):
@@ -180,8 +175,12 @@ class Jour:
 
     def initialiser_creneaux(self) -> None:
         """Génère les 4 créneaux réglementaires de la journée."""
+
+        with open("datas/horaires.json", "r", encoding="utf-8") as file:
+            horaires = json.load(file, )
+
         self.creneaux = [
-            Creneau(jour_index=self.index, index_dans_jour=i)
+            Creneau(jour_index=self.index, index_dans_jour=i, horaire=horaires[str(i)])
             for i in range(1, 5)
         ]
 
@@ -198,10 +197,11 @@ class Periode:
         Ça définit la fenêtre de planification complète des examens.
     """
 
-    def __init__(self, nom: str, type: str):
+    def __init__(self, nom: str, _type: str):
         self.nom = nom
-        self.type = type
+        self._type = _type
         self.jours: list[Jour] = []
+        # self.annee_debut: int = annee_debut if annee_debut else datetime.date.year
 
     def ajouter_jour(self, jour: Jour) -> None:
         """Ajoute un jour et initialise automatiquement ses 4 créneaux."""
@@ -219,6 +219,9 @@ class Periode:
     def __str__(self) -> str:
         nbr_creneaux = len(self.obtenir_tous_creneaux())
         return f"Période '{self.nom}' — {len(self.jours)} jours, {nbr_creneaux} créneaux disponibles"
+
+    def __repr__(self):
+        return f"{self.nom} ({len(self.jours)} jours)"
 
 
 class Salle:

@@ -1,0 +1,22 @@
+{
+  "Semestre": {
+    "Semestre 1": [
+      "Mardi, 20 Janvier 2026",
+      "Mercredi, 21 Janvier 2026",
+      "Jeudi, 22 Janvier 2026",
+      "Vendredi, 23 Janvier 2026",
+      "Samedi, 24 Janvier 2026",
+      "Lundi, 26 Janvier 2026"
+    ],
+    "Semestre 2": [
+      "Lundi, 22 Juin 2026",
+      "Mercredi, 24 Juin 2026",
+      "Jeudi, 25 Juin 2026",
+      "Vendredi, 26 Juin 2026",
+      "Samedi, 27 Juin 2026",
+      "Dimanche, 28 Juin 2026"
+    ]
+  },
+  "Trimestre": {
+  }
+}

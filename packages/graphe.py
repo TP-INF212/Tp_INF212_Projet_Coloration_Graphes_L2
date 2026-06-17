@@ -109,20 +109,22 @@ class GrapheConflits:
     def afficher_statistiques(self) -> None:
         """Affiche un tableau de bord des propriétés structurelles du graphe."""
         stats = self.statistiques()
-        print("\n" + "═" * 60)
+        print("\n" + "═" * 70)
         print("  📐 PROPRIÉTÉS STRUCTURELLES DU GRAPHE")
-        print("═" * 60)
-        print(f"  Ordre      |V|          : {stats['ordre']} sommets (UE)")
-        print(f"  Taille     |E|          : {stats['taille']} arêtes (conflits)")
+        print("═" * 70)
+        print(f"  Ordre      |V|         : {stats['ordre']} sommets (UE)")
+        print(f"  Taille     |E|         : {stats['taille']} arêtes (conflits)")
         print(f"  Degré max  Δ(G)        : {stats['degre_max']}")
         print(f"  Degré min  δ(G)        : {stats['degre_min']}")
-        print(f"  Degré moyen            : {stats['degre_moyen']:.2f}")
-        print(f"  Densité    d(G)        : {stats['densite']:.4f}")
-        print("\n  Degrés par UE :")
+        print(f"  Degré moyen            : {int(stats['degre_moyen'])}")
+        print(f"  Densité    d(G)        : {stats['densite']:.2f}")
+        print("\n ->> Degrés par UE : \n")
+
+        # Afficher les degrés de chaque UE
         for ue, deg in sorted(stats["degres"].items(), key=lambda x: -x[1]):
             barre = "▓" * deg
             print(f"    {ue.code:<10} deg={deg:2d}  {barre}")
-        print("═" * 60)
+        # print("═" * 60)
 
     def afficher_matrice(self) -> None:
         """Affiche la matrice d'adjacence en console (utile pour debug)."""
@@ -171,7 +173,7 @@ class GrapheConflits:
             print("    Installez avec : pip install networkx matplotlib")
             return
 
-        # ── Construction du graphe networkx ──────────────────────────────────
+        # Construction du graphe networkx
         G = nx.Graph()
         for ue in self.ues:
             G.add_node(ue.code, label=ue.code, effectif=ue.effectif())
@@ -278,3 +280,4 @@ class GrapheConflits:
         os.makedirs(os.path.dirname(fichier) if os.path.dirname(fichier) else ".", exist_ok=True)
         plt.savefig(fichier, dpi=150, bbox_inches="tight", facecolor=fig.get_facecolor())
         plt.close(fig)
+        print("")

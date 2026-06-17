@@ -1,0 +1,9 @@
+[
+  {"label": "A250",   "capacite": 10, "est_labo": false},
+  {"label": "A350",   "capacite": 20, "est_labo": false},
+  {"label": "A501","capacite": 30,  "est_labo": true},
+  {"label": "A502","capacite": 30,  "est_labo": true},
+  {"label": "A1001", "capacite": 40,  "est_labo": false},
+  {"label": "A1002", "capacite": 40,  "est_labo": false},
+  {"label": "R105", "capacite": 8,  "est_labo": true}
+]

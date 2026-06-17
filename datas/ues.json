@@ -1,0 +1,86 @@
+{
+  "INF": [
+    {
+      "code": "INF221",
+      "intitule":  "Introduction aux bases de données",
+      "necessite_labo": true
+    },
+    {
+      "code": "INF231",
+      "intitule":  "Structure des données & complexité des algorithmes",
+      "necessite_labo": true
+    },
+    {
+      "code": "INF211",
+      "intitule": "Modelisation UML",
+      "necessite_labo": false
+    },
+    {
+      "code": "INF251",
+      "intitule": "Genie logiciel & Système d'informations",
+      "necessite_labo": false
+    },
+    {
+      "code": "INF261",
+      "intitule": "Système & Réseau",
+      "necessite_labo": true
+    },
+    {
+      "code": "INF241",
+      "intitule": "Architecture des ordinateurs",
+      "necessite_labo": true
+    },
+    {
+      "code": "MAT211",
+      "intitule": "Algèbre linéaire",
+      "necessite_labo": false
+    },
+    {
+      "code": "FBL211",
+      "intitule": "Anglais/Francais",
+      "necessite_labo": false
+    },
+    {
+      "code": "INF212",
+      "intitule": "Mathématiques discrètes",
+      "necessite_labo": false
+    },
+    {
+      "code": "INF232",
+      "intitule": "Analyse de données",
+      "necessite_labo": true
+    },
+    {
+      "code": "INF222",
+      "intitule": "Programmation Web",
+      "necessite_labo": true
+    },
+    {
+      "code": "INF242",
+      "intutule": "Optimisation Numérique",
+      "necessite_labo": false
+    },
+    {
+      "code": "INF252",
+      "intitule": "Introduction a la sécurité informatique",
+      "necessite_labo": true
+    },
+    {
+      "code": "MAT232",
+      "intitule": "Integrale de Rieman",
+      "necessite_labo": false
+    },
+    {
+      "code": "PPE212",
+      "intitule": "Projet Professionnel de l'Etudiant",
+      "necessite_labo": false
+    }
+  ],
+  "MAT": [
+    {
+      "code": "MAT112",
+      "intitule": "Théorie du plan dans R",
+      "necessite_labo": false
+    }
+  ]
+}

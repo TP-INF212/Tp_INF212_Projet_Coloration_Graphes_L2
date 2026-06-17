@@ -310,7 +310,7 @@ class GenerateurPlanning:
             grille[cle] = f"{e.ue.code} | {e.ue.effectif()} éts | {e.ue.filiere}"
 
         with open(fichier, "w", newline="", encoding="utf-8-sig") as f:
-            writer = csv.writer(f, delimiter="|")
+            writer = csv.writer(f, delimiter=";")
 
             # En-tête
             writer.writerow(

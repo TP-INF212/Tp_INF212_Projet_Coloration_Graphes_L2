@@ -1,0 +1,38 @@
+══════════════════════════════════════════════════════════════════════
+       RAPPORT D'AUDIT — PLANIFICATION DES EXAMENS
+       Période : Semestre 1
+══════════════════════════════════════════════════════════════════════
+
+  Total entrées planifiées : 8
+  Avertissements d'affectation : 0
+
+  📅 Distribution des examens par créneau :
+    Jour 01 | C1 (07h30 – 09h30)          █░░░░░  (1 examen(s))
+    Jour 01 | C2 (10h00 – 12h00)          █░░░░░  (1 examen(s))
+    Jour 01 | C3 (13h00 – 15h00)          █░░░░░  (1 examen(s))
+    Jour 01 | C4 (15h30 – 17h30)          █░░░░░  (1 examen(s))
+    Jour 02 | C1 (07h30 – 09h30)          █░░░░░  (1 examen(s))
+    Jour 02 | C2 (10h00 – 12h00)          ██░░░░  (2 examen(s))
+    Jour 02 | C3 (13h00 – 15h00)          █░░░░░  (1 examen(s))
+
+  🏛️  Taux de remplissage des salles :
+    INF221      LABO-INFO2      [▓▓▓▓▓▓▓▓░░]   83.3%  (25/30)
+    INF211      LABO-INFO2      [▓▓▓▓▓▓▓░░░]   70.0%  (21/30)
+    INF251      LABO-INFO2      [▓▓▓▓▓▓░░░░]   60.0%  (18/30)
+    INF261      LABO-INFO2      [▓▓▓▓▓▓░░░░]   60.0%  (18/30)
+    MAT211      LABO-INFO2      [▓▓▓▓▓▓░░░░]   60.0%  (18/30)
+    INF231      LABO-INFO2      [▓▓▓▓▓▓░░░░]   66.7%  (20/30)
+    INF241      LABO-INFO1      [▓▓▓▓░░░░░░]   40.0%  (16/40)
+    FBL211      LABO-INFO2      [▓▓▓▓▓░░░░░]   56.7%  (17/30)
+
+  🔍 Contraintes de qualité : 8 violation(s)
+    ⚠️  Q1 | Filière 'INF' : 'INF221' et 'INF211' sur créneaux consécutifs (Jour 01 | C1 (07h30 – 09h30) / Jour 01 | C2 (10h00 – 12h00))
+    ⚠️  Q1 | Filière 'INF' : 'INF211' et 'INF251' sur créneaux consécutifs (Jour 01 | C2 (10h00 – 12h00) / Jour 01 | C3 (13h00 – 15h00))
+    ⚠️  Q1 | Filière 'INF' : 'INF251' et 'INF261' sur créneaux consécutifs (Jour 01 | C3 (13h00 – 15h00) / Jour 01 | C4 (15h30 – 17h30))
+    ⚠️  Q4 | Interdiction explicite : 'INF251' et 'INF261' planifiés le même jour (Jour 1)
+    ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'INF231' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
+    ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'INF241' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
+    ⚠️  Q1 | Filière 'INF' : 'INF231' et 'FBL211' sur créneaux consécutifs (Jour 02 | C2 (10h00 – 12h00) / Jour 02 | C3 (13h00 – 15h00))
+    ⚠️  Q1 | Filière 'INF' : 'INF241' et 'FBL211' sur créneaux consécutifs (Jour 02 | C2 (10h00 – 12h00) / Jour 02 | C3 (13h00 – 15h00))
+
+══════════════════════════════════════════════════════════════════════
