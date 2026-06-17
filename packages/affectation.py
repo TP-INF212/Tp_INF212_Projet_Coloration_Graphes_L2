@@ -85,7 +85,7 @@ class GenerateurPlanning:
         }
 
         print(f"\n  {'UE':<12} {'Créneau':<30} {'Salle':<16} {'Effectif':>8}  Surveillant")
-        print("  " + "─" * 80)
+        print("  " + "─" * 90)
 
         for couleur in couleurs_triees:
             creneau = couleur_vers_creneau[couleur]
@@ -241,36 +241,36 @@ class GenerateurPlanning:
         lignes.append(f"  Avertissements d'affectation : {len(self.avertissements)}")
 
         # Distribution par créneau
-        lignes.append("\n  📅 Distribution des examens par créneau :")
+        lignes.append("\n  📅 Distribution des examens par créneau :\n")
         compteur: dict[str, int] = {}
         for e in self.planning:
             cle = str(e.creneau)
             compteur[cle] = compteur.get(cle, 0) + 1
 
         for creneau_str, count in sorted(compteur.items()):
-            barre = "█" * count + "░" * max(0, 6 - count)
-            lignes.append(f"    {creneau_str:<36}  {barre}  ({count} examen(s))")
+            barre = "▓" * count + "░" * max(0, 6 - count)   # █ Pour couleur noire
+            lignes.append(f"\t {creneau_str:<36}  {barre}  ({count} examen(s))")
 
         # Taux de remplissage des salles
-        lignes.append("\n  🏛️  Taux de remplissage des salles :")
+        lignes.append("\n  🏛️  Taux de remplissage des salles :\n")
         for e in self.planning:
             taux = (e.ue.effectif() / e.salle.capacite) * 100
             barre_fill = "▓" * int(taux / 10) + "░" * (10 - int(taux / 10))
             lignes.append(
-                f"    {e.ue.code:<10}  {e.salle.label:<14}  "
-                f"[{barre_fill}]  {taux:5.1f}%  "
+                f"\t {e.ue.code:<10}  {e.salle.label:<14}  "
+                f"{barre_fill}  {taux:5.1f}%  "
                 f"({e.ue.effectif()}/{e.salle.capacite})"
             )
 
         # Violations de qualité
         lignes.append(
-            f"\n  🔍 Contraintes de qualité : {len(self.violations_qualite)} violation(s)"
+            f"\n  🔍 Contraintes de qualité : {len(self.violations_qualite)} violation(s) \n"
         )
         if self.violations_qualite:
             for v in self.violations_qualite:
-                lignes.append(f"    ⚠️  {v}")
+                lignes.append(f"\t ⚠️  {v}")
         else:
-            lignes.append("    ✅ Aucune violation de qualité — planning optimal !")
+            lignes.append("\t\t ✅ Aucune violation de qualité — planning optimal !")
 
         # Avertissements d'affectation
         if self.avertissements:
@@ -282,7 +282,7 @@ class GenerateurPlanning:
         return "\n".join(lignes)
 
     #  Exportation CSV
-    def exporter_csv(self, fichier: str = "output/planning.csv") -> None:
+    def exporter_planning_csv(self, fichier: str = "output/csv/planning.csv") -> None:
         """
         Exporte le planning sous forme de grille matricielle CSV :
           Lignes   → Créneaux (Jour × Index)
@@ -340,7 +340,7 @@ class GenerateurPlanning:
         print(f"  ✅ Planning exporté → {fichier}")
 
     #  Exportation TXT du planning lisible
-    def exporter_planning_txt(self, fichier: str = "output/planning_detail.txt") -> None:
+    def exporter_planning_txt(self, fichier: str = "output/txt/planning.txt") -> None:
         """Exporte le planning complet ligne par ligne dans un fichier texte."""
         os.makedirs(os.path.dirname(fichier) if os.path.dirname(fichier) else ".", exist_ok=True)
 

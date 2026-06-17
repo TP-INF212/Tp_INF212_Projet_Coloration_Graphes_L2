@@ -55,13 +55,12 @@ class AppState:
         self.interdictions: list[tuple[UE, UE]] = donnees["interdictions"]
 
         ue_text = "UE" if len(self.ues) == 1 else "UEs"
-        print("\n ✅ Données chargées avec succès :\n")
-        print(f"    • {len(self.ues)} {ue_text}")
-        print(f"    • {len(self.enseignants)} enseignants")
-        print(f"    • {len(self.etudiants)} étudiants")
-        print(f"    • {len(self.salles)} salles")
-        print(f"    • Période : {self.periode.nom}")
-        pause()
+        print("\n\t ✅ Données chargées avec succès :\n")
+        print(f"\t    • {len(self.ues)} {ue_text}")
+        print(f"\t    • {len(self.enseignants)} enseignants")
+        print(f"\t    • {len(self.etudiants)} étudiants")
+        print(f"\t    • {len(self.salles)} salles")
+        print(f"\t    • Période : {self.periode.nom}")
 
     def reset_planning(self):
         """Réinitialise les résultats calculés (graphe, colorations, planning)."""
@@ -87,6 +86,8 @@ class AppState:
         self.algo_actif = ""
         self.generateur = None
         self.planning = []
+
+        print("\n\t ✅ Données réinitialisées avec succès !")
 
 
 def prompt() -> str:
@@ -230,7 +231,7 @@ def construire_graphe(app: AppState) -> None:
         choix = prompt()
 
         if choix == "1":
-            chemin = "output/images/graphe_(sans_coloration).png"
+            chemin = "output/images/graphe_sans_coloration.png"
             app.graphe.visualiser(fichier=chemin, titre="Graphe de Conflits — Sans Coloration")
             print(f"\t  ✅ Image sauvegardée : {chemin}")
             pause()
@@ -329,7 +330,6 @@ def generer_planning(app: AppState) -> None:
         pause()
         return
 
-    print("\n  Génération en cours…\n")
     app.generateur = GenerateurPlanning(
         coloration=app.coloration_active,
         periode=app.periode,
@@ -339,17 +339,15 @@ def generer_planning(app: AppState) -> None:
     )
     try:
         app.planning = app.generateur.generer()
-        print(f"\n  ✅ Planning généré — {len(app.planning)} examens planifiés.")
+        print(f"\n\t  ✅ Planning généré — {len(app.planning)} examens planifiés.")
     except ValueError as e:
-        print(f"\n  ❌ Erreur de génération : {e}")
+        print(f"\n\t  ❌ Erreur de génération : {e}")
 
     pause()
 
 
 # 5. Rapport d'audit
 def rapport_audit(app: AppState) -> None:
-    titre("🔍  RAPPORT D'AUDIT")
-
     if app.generateur is None:
         print("  ⚠️  Aucun planning généré. Exécutez d'abord l'option 4.")
         pause()
@@ -358,11 +356,12 @@ def rapport_audit(app: AppState) -> None:
     rapport = app.generateur.rapport_audit()
     print(rapport)
 
-    if saisie_bool("\n  Sauvegarder le rapport dans output/audit.txt ?"):
+    chemin = "output/txt/audit.txt"
+    if saisie_bool(f"\n  Sauvegarder le rapport ?"):
         os.makedirs("output", exist_ok=True)
-        with open("output/audit.txt", "w", encoding="utf-8") as f:
+        with open(f"{chemin}", "w", encoding="utf-8") as f:
             f.write(rapport)
-        print("  ✅ Rapport sauvegardé : output/audit.txt")
+        print(f"\t  ✅ Rapport sauvegardé : {chemin}")
 
     pause()
 
@@ -382,14 +381,15 @@ def exporter(app: AppState) -> None:
     print("  [0] Retour")
     choix = prompt()
 
-    if choix in ("1", "3"):
-        app.generateur.exporter_csv("output/planning.csv")
-
-    if choix in ("2", "3"):
-        app.generateur.exporter_planning_txt("output/planning_detail.txt")
-
-    if choix != "0":
-        pause()
+    chemin_csv = "output/csv/planing.csv"
+    chemin_txt = "output/txt/planing.txt"
+    if choix == "1":
+        app.generateur.exporter_planning_csv(f"{chemin_csv}")
+    elif choix == "2":
+        app.generateur.exporter_planning_txt(f"{chemin_txt}")
+    elif choix == "3":
+        app.generateur.exporter_planning_csv(f"{chemin_csv}")
+        app.generateur.exporter_planning_txt(f"{chemin_txt}")
 
 
 # 7. Benchmark
@@ -410,6 +410,7 @@ def benchmark(app: AppState) -> None:
 # 8. Gestion des ressources (CRUD léger)
 def gestion_ressources(app: AppState) -> None:
     """Sous-menu de gestion des entités."""
+    aller_menu = False
 
     while True:
         titre("⚙️   GESTION DES RESSOURCES")
@@ -424,46 +425,58 @@ def gestion_ressources(app: AppState) -> None:
         print("  [9]  Réinitialiser les données")
         print("  [0]  Retour au menu principal")
 
-        choix = prompt()
-
-        if choix == "0":
+        if aller_menu:
             break
 
-        elif choix == "1":
-            _ajouter_enseignant(app)
+        while True:
+            choix = prompt()
 
-        elif choix == "2":
-            _ajouter_etudiant(app)
+            if choix == "0":
+                aller_menu = True
+                break
 
-        elif choix == "3":
-            _ajouter_ue(app)
-
-        elif choix == "4":
-            _ajouter_salle(app)
-
-        elif choix == "5":
-            _inscrire_etudiant_ue(app)
-
-        elif choix == "6":
-            _ajouter_jour(app)
-
-        elif choix == "7":
-            # _ajouter_interdiction(app)
-            afficher_ressources(app)
-
-        elif choix == "8":
-            # _supprimer_ue(app)
-            app.charger_donnees()
-
-        elif choix == "9":
-            # afficher_ressources(app)
-            app.reset_all()
-
-        elif choix == "10":
-            # Reinitialisation des données completes :
-            app.reset_all()
-        else:
-            choix_invalide()
+            elif choix == "1":
+                _ajouter_enseignant(app)
+                pause()
+                break
+            elif choix == "2":
+                _ajouter_etudiant(app)
+                pause()
+                break
+            elif choix == "3":
+                _ajouter_ue(app)
+                pause()
+                break
+            elif choix == "4":
+                _ajouter_salle(app)
+                pause()
+                break
+            elif choix == "5":
+                _inscrire_etudiant_ue(app)
+                pause()
+                break
+            elif choix == "6":
+                _ajouter_jour(app)
+                pause()
+                break
+            elif choix == "7":
+                # _ajouter_interdiction(app)
+                afficher_ressources(app)
+                pause()
+                break
+            elif choix == "8":
+                # _supprimer_ue(app)
+                app.charger_donnees()
+                pause()
+                break
+            elif choix == "9":
+                # Reinitialisation complete des données :
+                # afficher_ressources(app)
+                app.reset_all()
+                pause()
+                break
+            else:
+                choix_invalide()
 
 
 def _ajouter_enseignant(app: AppState) -> None:
@@ -682,6 +695,7 @@ def main() -> None:
         choix_init = prompt()
         if choix_init == "1":
             app.charger_donnees()
+            pause()
         elif choix_init != "2":
             choix_invalide()
             continue

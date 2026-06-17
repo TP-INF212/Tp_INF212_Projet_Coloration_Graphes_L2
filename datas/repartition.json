@@ -1,7 +1,7 @@
 {
   "INF221": {
     "enseignant": 1,
-    "etudiants": {"start": 0, "end": 25}
+    "etudiants": {"start": 17, "end": 21}
   },
   "INF231": {
     "enseignant": 1,
@@ -41,6 +41,6 @@
   },
   "PPE212": {
     "enseignant": 4,
-    "etudiants": {"start": 5, "end":  9}
+    "etudiants": {"start": 9, "end": 16}
   }
 }

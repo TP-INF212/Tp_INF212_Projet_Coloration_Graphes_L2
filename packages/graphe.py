@@ -260,7 +260,7 @@ class GrapheConflits:
                 title_fontsize=9,
             )
 
-        # Annotation statistiques
+        # Annotations statistiques
         stats = self.statistiques()
         annot = (
             f"|V|={stats['ordre']}   |E|={stats['taille']}   "
@@ -280,4 +280,4 @@ class GrapheConflits:
         os.makedirs(os.path.dirname(fichier) if os.path.dirname(fichier) else ".", exist_ok=True)
         plt.savefig(fichier, dpi=150, bbox_inches="tight", facecolor=fig.get_facecolor())
         plt.close(fig)
-        print("")
+

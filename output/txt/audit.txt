@@ -1,0 +1,46 @@
+══════════════════════════════════════════════════════════════════════
+       RAPPORT D'AUDIT — PLANIFICATION DES EXAMENS
+       Période : Semestre 2
+══════════════════════════════════════════════════════════════════════
+
+  Total entrées planifiées : 11
+  Avertissements d'affectation : 0
+
+  📅 Distribution des examens par créneau :
+
+	 Jour 01 | C1 (07h30 – 09h30)          ██░░░░  (2 examen(s))
+	 Jour 01 | C2 (10h00 – 12h00)          ██░░░░  (2 examen(s))
+	 Jour 01 | C3 (13h00 – 15h00)          █░░░░░  (1 examen(s))
+	 Jour 01 | C4 (15h30 – 17h30)          ██░░░░  (2 examen(s))
+	 Jour 02 | C1 (07h30 – 09h30)          ███░░░  (3 examen(s))
+	 Jour 02 | C2 (10h00 – 12h00)          █░░░░░  (1 examen(s))
+
+  🏛️  Taux de remplissage des salles :
+
+	 INF261      A501            ██████░░░░   60.0%  (18/30)
+	 MAT112      R105            ██████░░░░   62.5%  (5/8)
+	 INF251      A350            █████████░   90.0%  (18/20)
+	 INF212      A250            ██████████  100.0%  (10/10)
+	 MAT211      A350            █████████░   90.0%  (18/20)
+	 FBL211      A350            ████████░░   85.0%  (17/20)
+	 INF241      A501            █████░░░░░   53.3%  (16/30)
+	 INF211      A350            ███████░░░   70.0%  (14/20)
+	 PPE212      R105            ████████░░   87.5%  (7/8)
+	 INF221      A501            █░░░░░░░░░   13.3%  (4/30)
+	 INF231      A501            ███░░░░░░░   33.3%  (10/30)
+
+  🔍 Contraintes de qualité : 11 violation(s) 
+
+	 ⚠️  Q1 | Filière 'INF' : 'INF261' et 'INF251' sur créneaux consécutifs (Jour 01 | C1 (07h30 – 09h30) / Jour 01 | C2 (10h00 – 12h00))
+	 ⚠️  Q4 | Interdiction explicite : 'INF261' et 'INF251' planifiés le même jour (Jour 1)
+	 ⚠️  Q1 | Filière 'INF' : 'INF261' et 'INF212' sur créneaux consécutifs (Jour 01 | C1 (07h30 – 09h30) / Jour 01 | C2 (10h00 – 12h00))
+	 ⚠️  Q1 | Filière 'INF' : 'INF251' et 'MAT211' sur créneaux consécutifs (Jour 01 | C2 (10h00 – 12h00) / Jour 01 | C3 (13h00 – 15h00))
+	 ⚠️  Q1 | Filière 'INF' : 'INF212' et 'MAT211' sur créneaux consécutifs (Jour 01 | C2 (10h00 – 12h00) / Jour 01 | C3 (13h00 – 15h00))
+	 ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'FBL211' sur créneaux consécutifs (Jour 01 | C3 (13h00 – 15h00) / Jour 01 | C4 (15h30 – 17h30))
+	 ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'INF241' sur créneaux consécutifs (Jour 01 | C3 (13h00 – 15h00) / Jour 01 | C4 (15h30 – 17h30))
+	 ⚠️  Q1 | Filière 'INF' : 'INF211' et 'INF231' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
+	 ⚠️  Q1 | Filière 'INF' : 'PPE212' et 'INF231' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
+	 ⚠️  Q1 | Filière 'INF' : 'INF221' et 'INF231' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
+	 ⚠️  Q4 | Interdiction explicite : 'INF221' et 'INF231' planifiés le même jour (Jour 2)
+
+══════════════════════════════════════════════════════════════════════
