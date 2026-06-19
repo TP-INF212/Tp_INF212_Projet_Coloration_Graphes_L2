@@ -10,7 +10,7 @@
 from __future__ import annotations
 import time
 from .graphe import GrapheConflits
-from .models import UE
+from scripts.models import UE
 
 
 class ColoriageAlgorithmes:
@@ -188,9 +188,6 @@ class ColoriageAlgorithmes:
         """Affiche le rapport comparatif formaté en console."""
         stats = graphe.statistiques()
 
-        print("\n" + "═" * 70)
-        print("  📊 BENCHMARK COMPARATIF — ALGORITHMES DE COLORATION")
-        print("═" * 70)
         print(
             f"  Graphe : |V|={stats['ordre']}  |E|={stats['taille']}  "
             f"Δ(G)={stats['degre_max']}  δ(G)={stats['degre_min']}"
@@ -213,9 +210,9 @@ class ColoriageAlgorithmes:
         # Nombre de couleurs (créneaux) — plus bas = meilleur
         gagnant_couleurs = "✅" if ds["nb_couleurs"] <= wp["nb_couleurs"] else "  "
         print(
-            f"  {'Créneaux utilisés (χ borne)':<32} "
+            f"  {'Créneaux utilisés (X borne)':<25} "
             f"{wp['nb_couleurs']:>15d} "
-            f"{ds['nb_couleurs']:>14d} {gagnant_couleurs}"
+            f"{ds['nb_couleurs']:>14d}     {gagnant_couleurs}"
         )
 
         # Temps moyen

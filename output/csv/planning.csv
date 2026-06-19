@@ -1,10 +1,32 @@
 sep=;
 Créneau / Salle;A250;A350;A501;R105;Total examens
-(07h30 – 09h30) - Lundi, 22 Juin 2026;;;INF261 (INF);MAT112 (MAT);2
-(10h00 – 12h00) - Lundi, 22 Juin 2026;INF212 (INF);MAT211 (INF);;;2
-(13h00 – 15h00) - Lundi, 22 Juin 2026;;INF251 (INF);;;1
-(15h30 – 17h30) - Lundi, 22 Juin 2026;;FBL211 (INF);INF241 (INF);;2
-(07h30 – 09h30) - Mercredi, 24 Juin 2026;;INF211 (INF);INF231 (INF);;2
-(10h00 – 12h00) - Mercredi, 24 Juin 2026;;;INF221 (INF);PPE212 (INF);2
+(07h30 – 09h30) - Lundi, 22 Juin 2026;;;"INF261 (18 ets)
+ INF
+ ESSOMBA Pauline";"MAT112 (5 ets)
+ MAT
+ FOUDA Marie";2
+(10h00 – 12h00) - Lundi, 22 Juin 2026;"INF212 (10 ets)
+ INF
+ ESSOMBA Pauline";"INF251 (18 ets)
+ INF
+ OWONA Théodore";;;2
+(13h00 – 15h00) - Lundi, 22 Juin 2026;;"MAT211 (18 ets)
+ INF
+ ABANDA Céline";;;1
+(15h30 – 17h30) - Lundi, 22 Juin 2026;;"FBL211 (17 ets)
+ INF
+ Sokeng Saurelle";"INF241 (16 ets)
+ INF
+ OWONA Théodore";;2
+(07h30 – 09h30) - Mercredi, 24 Juin 2026;;"INF211 (14 ets)
+ INF
+ FOUDA Marie";"INF221 (4 ets)
+ INF
+ NKOMO Hélène";"PPE212 (7 ets)
+ INF
+ BIKOI Cyrille";3
+(10h00 – 12h00) - Mercredi, 24 Juin 2026;;;"INF231 (10 ets)
+ INF
+ NKOMO Hélène";;1
 
 TOTAL examens planifiés; ; ; ; ;11

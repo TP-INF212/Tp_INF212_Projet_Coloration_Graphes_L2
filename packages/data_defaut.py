@@ -10,7 +10,7 @@
       - Interdictions inter-UE explicites (contrainte qualité Q4)
 """
 import json
-from .models import Enseignant, Etudiant, UE, Salle, Periode, Jour
+from scripts.models import Enseignant, Etudiant, UE, Salle, Periode, Jour
 
 
 def creer_enseignants() -> list[Enseignant]:

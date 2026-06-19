@@ -8,7 +8,7 @@ Implémente la classe GrapheConflits avec :
 """
 
 from __future__ import annotations
-from .models import UE, Creneau
+from scripts.models import UE
 
 
 class GrapheConflits:

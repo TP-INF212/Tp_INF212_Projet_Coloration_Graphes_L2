@@ -8,12 +8,12 @@
 
   📅 Distribution des examens par créneau :
 
-	 Jour 01 | C1 (07h30 – 09h30)          ▓▓░░░░  (2 examen(s))
-	 Jour 01 | C2 (10h00 – 12h00)          ▓▓░░░░  (2 examen(s))
-	 Jour 01 | C3 (13h00 – 15h00)          ▓░░░░░  (1 examen(s))
-	 Jour 01 | C4 (15h30 – 17h30)          ▓▓░░░░  (2 examen(s))
-	 Jour 02 | C1 (07h30 – 09h30)          ▓▓▓░░░  (3 examen(s))
-	 Jour 02 | C2 (10h00 – 12h00)          ▓░░░░░  (1 examen(s))
+	(07h30 – 09h30) - Lundi, 22 Juin 2026         ▓▓░░░░  (2 examen(s))
+	(07h30 – 09h30) - Mercredi, 24 Juin 2026      ▓▓▓░░░  (3 examen(s))
+	(10h00 – 12h00) - Lundi, 22 Juin 2026         ▓▓░░░░  (2 examen(s))
+	(10h00 – 12h00) - Mercredi, 24 Juin 2026      ▓░░░░░  (1 examen(s))
+	(13h00 – 15h00) - Lundi, 22 Juin 2026         ▓░░░░░  (1 examen(s))
+	(15h30 – 17h30) - Lundi, 22 Juin 2026         ▓▓░░░░  (2 examen(s))
 
   🏛️  Taux de remplissage des salles :
 
@@ -31,16 +31,16 @@
 
   🔍 Contraintes de qualité : 11 violation(s) 
 
-	 ⚠️  Q1 | Filière 'INF' : 'INF261' et 'INF251' sur créneaux consécutifs (Jour 01 | C1 (07h30 – 09h30) / Jour 01 | C2 (10h00 – 12h00))
+	 ⚠️  Q1 | Filière 'INF' : 'INF261' et 'INF251' sur créneaux consécutifs ((07h30 – 09h30) - Lundi, 22 Juin 2026 / (10h00 – 12h00) - Lundi, 22 Juin 2026)
 	 ⚠️  Q4 | Interdiction explicite : 'INF261' et 'INF251' planifiés le même jour (Jour 1)
-	 ⚠️  Q1 | Filière 'INF' : 'INF261' et 'INF212' sur créneaux consécutifs (Jour 01 | C1 (07h30 – 09h30) / Jour 01 | C2 (10h00 – 12h00))
-	 ⚠️  Q1 | Filière 'INF' : 'INF251' et 'MAT211' sur créneaux consécutifs (Jour 01 | C2 (10h00 – 12h00) / Jour 01 | C3 (13h00 – 15h00))
-	 ⚠️  Q1 | Filière 'INF' : 'INF212' et 'MAT211' sur créneaux consécutifs (Jour 01 | C2 (10h00 – 12h00) / Jour 01 | C3 (13h00 – 15h00))
-	 ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'FBL211' sur créneaux consécutifs (Jour 01 | C3 (13h00 – 15h00) / Jour 01 | C4 (15h30 – 17h30))
-	 ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'INF241' sur créneaux consécutifs (Jour 01 | C3 (13h00 – 15h00) / Jour 01 | C4 (15h30 – 17h30))
-	 ⚠️  Q1 | Filière 'INF' : 'INF211' et 'INF231' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
-	 ⚠️  Q1 | Filière 'INF' : 'PPE212' et 'INF231' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
-	 ⚠️  Q1 | Filière 'INF' : 'INF221' et 'INF231' sur créneaux consécutifs (Jour 02 | C1 (07h30 – 09h30) / Jour 02 | C2 (10h00 – 12h00))
+	 ⚠️  Q1 | Filière 'INF' : 'INF261' et 'INF212' sur créneaux consécutifs ((07h30 – 09h30) - Lundi, 22 Juin 2026 / (10h00 – 12h00) - Lundi, 22 Juin 2026)
+	 ⚠️  Q1 | Filière 'INF' : 'INF251' et 'MAT211' sur créneaux consécutifs ((10h00 – 12h00) - Lundi, 22 Juin 2026 / (13h00 – 15h00) - Lundi, 22 Juin 2026)
+	 ⚠️  Q1 | Filière 'INF' : 'INF212' et 'MAT211' sur créneaux consécutifs ((10h00 – 12h00) - Lundi, 22 Juin 2026 / (13h00 – 15h00) - Lundi, 22 Juin 2026)
+	 ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'FBL211' sur créneaux consécutifs ((13h00 – 15h00) - Lundi, 22 Juin 2026 / (15h30 – 17h30) - Lundi, 22 Juin 2026)
+	 ⚠️  Q1 | Filière 'INF' : 'MAT211' et 'INF241' sur créneaux consécutifs ((13h00 – 15h00) - Lundi, 22 Juin 2026 / (15h30 – 17h30) - Lundi, 22 Juin 2026)
+	 ⚠️  Q1 | Filière 'INF' : 'INF211' et 'INF231' sur créneaux consécutifs ((07h30 – 09h30) - Mercredi, 24 Juin 2026 / (10h00 – 12h00) - Mercredi, 24 Juin 2026)
+	 ⚠️  Q1 | Filière 'INF' : 'PPE212' et 'INF231' sur créneaux consécutifs ((07h30 – 09h30) - Mercredi, 24 Juin 2026 / (10h00 – 12h00) - Mercredi, 24 Juin 2026)
+	 ⚠️  Q1 | Filière 'INF' : 'INF221' et 'INF231' sur créneaux consécutifs ((07h30 – 09h30) - Mercredi, 24 Juin 2026 / (10h00 – 12h00) - Mercredi, 24 Juin 2026)
 	 ⚠️  Q4 | Interdiction explicite : 'INF221' et 'INF231' planifiés le même jour (Jour 2)
 
 ══════════════════════════════════════════════════════════════════════

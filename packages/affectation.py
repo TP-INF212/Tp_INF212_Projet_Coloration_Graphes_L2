@@ -11,8 +11,7 @@
 from __future__ import annotations
 import csv
 import os
-from .models import UE, Creneau, Salle, Enseignant, EntreePlanning, Periode, ViolationContrainteException
-from .graphe import GrapheConflits
+from scripts.models import UE, Creneau, Salle, Enseignant, EntreePlanning, Periode, ViolationContrainteException
 
 
 class GenerateurPlanning:
@@ -249,7 +248,7 @@ class GenerateurPlanning:
 
         for creneau_str, count in sorted(compteur.items()):
             barre = "▓" * count + "░" * max(0, 6 - count)   # █ Pour couleur noire
-            lignes.append(f"\t {creneau_str:<36}  {barre}  ({count} examen(s))")
+            lignes.append(f"\t{creneau_str:<45} {barre}  ({count} examen(s))")
 
         # Taux de remplissage des salles
         lignes.append("\n  🏛️  Taux de remplissage des salles :\n")
@@ -285,9 +284,9 @@ class GenerateurPlanning:
     def exporter_planning_csv(self, fichier: str = "output/csv/planning.csv") -> None:
         """
         Exporte le planning sous forme de grille matricielle CSV :
-          Lignes   → Créneaux (Jour × Index)
-          Colonnes → Salles
-          Cellules → Code UE + effectif (ou vide si aucun examen)
+          Lignes   -> Créneaux (Jour × Index)
+          Colonnes -> Salles
+          Cellules -> Code UE + effectif (ou vide si aucun examen)
         """
         os.makedirs(os.path.dirname(fichier) if os.path.dirname(fichier) else ".", exist_ok=True)
 
@@ -298,11 +297,11 @@ class GenerateurPlanning:
         )
         salles_uniques = sorted({e.salle.label for e in self.planning})
 
-        # Table de recherche (creneau_str, salle_label) → contenu cellule
+        # Table de recherche (creneau_str, salle_label) -> contenu cellule
         grille: dict[tuple[str, str], str] = {}
         for e in self.planning:
             cle = (str(e.creneau), e.salle.label)
-            grille[cle] = f"{e.ue.code} ({e.ue.filiere})"
+            grille[cle] = f"{e.ue.code} ({e.ue.effectif()} ets)\n {e.ue.filiere}\n {e.ue.enseignant.__str__()}"
 
         # 💡 MODIFICATION ICI : On utilise l'encodage natif Excel Windows ("cp1252")
         with open(fichier, "w", newline="", encoding="cp1252") as f:
@@ -347,19 +346,26 @@ class GenerateurPlanning:
         with open(fichier, "w", encoding="utf-8") as f:
             f.write("PLANNING DES EXAMENS — UNIVERSITÉ DE YAOUNDÉ I\n")
             f.write(f"Période : {self.periode.nom}\n")
-            f.write("=" * 80 + "\n\n")
-            f.write(f"{'UE Code':<12} {'Intitulé':<30} {'Créneau':<22} "
-                    f"{'Salle':<14} {'Eff.':>5}  Surveillant\n")
-            f.write("-" * 100 + "\n")
-            for e in sorted(self.planning, key=lambda x: (x.creneau.jour_index, x.creneau.index)):
-                f.write(
-                    f"{e.ue.code:<12} {e.ue.intitule[:28]:<30} "
-                    f"J{e.creneau.jour_index:02d}-C{e.creneau.index} "
-                    f"({e.creneau.index * 2 + 5}h)  "
-                    f"{e.salle.label:<14} {e.ue.effectif():>5}  "
-                    f"{e.surveillant}\n"
-                )
-            f.write("\n" + "=" * 100 + "\n")
-            f.write(self.rapport_audit())
+            f.write("=" * 110 + "\n\n")  # Augmenté à 110 pour couvrir la nouvelle largeur
 
-        print(f"  ✅ Planning détaillé → {fichier}")
+            # 1. Définition des en-têtes avec des largeurs fixes et harmonisées
+            f.write(f"{'UE Code':<12} {'Intitulé':<30} {'Créneau':<45} "
+                    f"{'Salle':<14} {'Eff.':>5}   {'Surveillant':<25}\n")
+            f.write("-" * 140 + "\n")  # Pour souligner toute la ligne
+
+            for e in sorted(self.planning, key=lambda x: (x.creneau.jour_index, x.creneau.index)):
+                creneau_texte = e.creneau.__str__()
+
+                # 3. Écriture avec les mêmes spécificateurs de largeur que l'en-tête
+                f.write(
+                    f"{e.ue.code:<12} "
+                    f"{e.ue.intitule[:28]:<30} "
+                    f"{creneau_texte:<45} "
+                    f"{e.salle.label:<14} "
+                    f"{e.ue.effectif():>5}   "
+                    f"{e.surveillant.__str__():<25}\n"
+                )
+            f.write("\n" + "=" * 140 + "\n")
+            # f.write(self.rapport_audit())
+
+        print(f"\t  ✅ Planning détaillé: {fichier}")
