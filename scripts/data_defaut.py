@@ -1,13 +1,5 @@
 """
-    init_data.py — Données par défaut pour le système de planification
-
-    Pré-charge un jeu de données réaliste :
-      - 8 enseignants
-      - 40 étudiants répartis sur plusieurs filières
-      - 9 UE (INF221, INF231, MAT231, INF251, INF242, INF261, MAT241, INF271, PHY231)
-      - 6 salles (dont 2 labos)
-      - 1 période de 5 jours (20 créneaux disponibles)
-      - Interdictions inter-UE explicites (contrainte qualité Q4)
+    data_defaut.py — Données par défaut pour le système de planification
 """
 import json
 from scripts.models import Enseignant, Etudiant, UE, Salle, Periode, Jour

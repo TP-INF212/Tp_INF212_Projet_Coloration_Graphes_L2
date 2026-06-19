@@ -1,0 +1,159 @@
+
+  INF221 — Introduction aux bases de données  [4 étudiant(s)]
+       • YI-2024-018  RINGO Flore
+       • YI-2024-019  SIMO Olivier
+       • YI-2024-020  TALLA Blanche
+       • YI-2024-021  UMENGA David
+
+  INF231 — Structure des données & complexité des algorithmes  [10 étudiant(s)]
+       • YI-2024-011  KAMGA Rodrigue
+       • YI-2024-012  LEUNGA Viviane
+       • YI-2024-013  MAGNE Serge
+       • YI-2024-014  NGUELE Joëlle
+       • YI-2024-015  ONDOUA Fernand
+       • YI-2024-016  PENDA Sylvie
+       • YI-2024-017  QUITCHA Alain
+       • YI-2024-018  RINGO Flore
+       • YI-2024-019  SIMO Olivier
+       • YI-2024-020  TALLA Blanche
+
+  INF211 — Modelisation UML  [14 étudiant(s)]
+       • YI-2024-027  ABENA Pierre
+       • YI-2024-028  BEKONO Lucie
+       • YI-2024-029  COMBELE Xavier
+       • YI-2024-030  DANG Isabelle
+       • YI-2024-031  EBOBISSE Paul
+       • YI-2024-032  FANTA Aminata
+       • YI-2024-033  GOMIS Kévin
+       • YI-2024-034  HAMAN Roukayatou
+       • YI-2024-035  IDRISSOU Moussa
+       • YI-2024-022  VOUFO Rachel
+       • YI-2024-023  WANDJI Éric
+       • YI-2024-024  XANGA Félicité
+       • YI-2024-025  YOMBI Thomas
+       • YI-2024-026  ZANG Vanessa
+
+  INF251 — Genie logiciel & Système d'informations  [18 étudiant(s)]
+       • YI-2024-006  FOGUE Nadège
+       • YI-2024-007  GUIFO Roméo
+       • YI-2024-008  HAPPI Christelle
+       • YI-2024-009  ILOUGA Marcel
+       • YI-2024-010  JEMBA Laure
+       • YI-2024-011  KAMGA Rodrigue
+       • YI-2024-012  LEUNGA Viviane
+       • YI-2024-013  MAGNE Serge
+       • YI-2024-014  NGUELE Joëlle
+       • YI-2024-015  ONDOUA Fernand
+       • YI-2024-016  PENDA Sylvie
+       • YI-2024-017  QUITCHA Alain
+       • YI-2024-018  RINGO Flore
+       • YI-2024-019  SIMO Olivier
+       • YI-2024-020  TALLA Blanche
+       • YI-2024-021  UMENGA David
+       • YI-2024-022  VOUFO Rachel
+       • YI-2024-023  WANDJI Éric
+
+  INF261 — Système & Réseau  [18 étudiant(s)]
+       • YI-2024-027  ABENA Pierre
+       • YI-2024-028  BEKONO Lucie
+       • YI-2024-029  COMBELE Xavier
+       • YI-2024-030  DANG Isabelle
+       • YI-2024-031  EBOBISSE Paul
+       • YI-2024-032  FANTA Aminata
+       • YI-2024-033  GOMIS Kévin
+       • YI-2024-016  PENDA Sylvie
+       • YI-2024-017  QUITCHA Alain
+       • YI-2024-018  RINGO Flore
+       • YI-2024-019  SIMO Olivier
+       • YI-2024-020  TALLA Blanche
+       • YI-2024-021  UMENGA David
+       • YI-2024-022  VOUFO Rachel
+       • YI-2024-023  WANDJI Éric
+       • YI-2024-024  XANGA Félicité
+       • YI-2024-025  YOMBI Thomas
+       • YI-2024-026  ZANG Vanessa
+
+  INF241 — Architecture des ordinateurs  [16 étudiant(s)]
+       • YI-2024-027  ABENA Pierre
+       • YI-2024-028  BEKONO Lucie
+       • YI-2024-029  COMBELE Xavier
+       • YI-2024-030  DANG Isabelle
+       • YI-2024-031  EBOBISSE Paul
+       • YI-2024-032  FANTA Aminata
+       • YI-2024-033  GOMIS Kévin
+       • YI-2024-034  HAMAN Roukayatou
+       • YI-2024-035  IDRISSOU Moussa
+       • YI-2024-036  JIOFACK Gisèle
+       • YI-2024-021  UMENGA David
+       • YI-2024-022  VOUFO Rachel
+       • YI-2024-023  WANDJI Éric
+       • YI-2024-024  XANGA Félicité
+       • YI-2024-025  YOMBI Thomas
+       • YI-2024-026  ZANG Vanessa
+
+  MAT211 — Algèbre linéaire  [18 étudiant(s)]
+       • YI-2024-009  ILOUGA Marcel
+       • YI-2024-010  JEMBA Laure
+       • YI-2024-011  KAMGA Rodrigue
+       • YI-2024-012  LEUNGA Viviane
+       • YI-2024-013  MAGNE Serge
+       • YI-2024-014  NGUELE Joëlle
+       • YI-2024-015  ONDOUA Fernand
+       • YI-2024-016  PENDA Sylvie
+       • YI-2024-017  QUITCHA Alain
+       • YI-2024-018  RINGO Flore
+       • YI-2024-019  SIMO Olivier
+       • YI-2024-020  TALLA Blanche
+       • YI-2024-021  UMENGA David
+       • YI-2024-022  VOUFO Rachel
+       • YI-2024-023  WANDJI Éric
+       • YI-2024-024  XANGA Félicité
+       • YI-2024-025  YOMBI Thomas
+       • YI-2024-026  ZANG Vanessa
+
+  FBL211 — Anglais/Francais  [17 étudiant(s)]
+       • YI-2024-003  CHENDJOU Patrick
+       • YI-2024-004  DJOUMESSI Ariane
+       • YI-2024-005  ELONG Stéphane
+       • YI-2024-006  FOGUE Nadège
+       • YI-2024-007  GUIFO Roméo
+       • YI-2024-008  HAPPI Christelle
+       • YI-2024-009  ILOUGA Marcel
+       • YI-2024-010  JEMBA Laure
+       • YI-2024-011  KAMGA Rodrigue
+       • YI-2024-012  LEUNGA Viviane
+       • YI-2024-013  MAGNE Serge
+       • YI-2024-014  NGUELE Joëlle
+       • YI-2024-015  ONDOUA Fernand
+       • YI-2024-016  PENDA Sylvie
+       • YI-2024-017  QUITCHA Alain
+       • YI-2024-018  RINGO Flore
+       • YI-2024-019  SIMO Olivier
+
+  INF212 — Mathématiques discrètes  [10 étudiant(s)]
+       • YI-2024-031  EBOBISSE Paul
+       • YI-2024-032  FANTA Aminata
+       • YI-2024-033  GOMIS Kévin
+       • YI-2024-034  HAMAN Roukayatou
+       • YI-2024-035  IDRISSOU Moussa
+       • YI-2024-036  JIOFACK Gisèle
+       • YI-2024-037  KENFACK Arnaud
+       • YI-2024-038  LEMDJOU Diane
+       • YI-2024-039  MBANG Junior
+       • YI-2024-040  NDZANA Clarisse
+
+  PPE212 — Projet Professionnel de l'Etudiant  [7 étudiant(s)]
+       • YI-2024-010  JEMBA Laure
+       • YI-2024-011  KAMGA Rodrigue
+       • YI-2024-012  LEUNGA Viviane
+       • YI-2024-013  MAGNE Serge
+       • YI-2024-014  NGUELE Joëlle
+       • YI-2024-015  ONDOUA Fernand
+       • YI-2024-016  PENDA Sylvie
+
+  MAT112 — Théorie du plan dans R  [5 étudiant(s)]
+       • YI-2024-001  AKONO Brice
+       • YI-2024-002  BELLA Solange
+       • YI-2024-003  CHENDJOU Patrick
+       • YI-2024-004  DJOUMESSI Ariane
+       • YI-2024-005  ELONG Stéphane

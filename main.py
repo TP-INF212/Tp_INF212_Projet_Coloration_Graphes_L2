@@ -17,12 +17,12 @@ import sys
 
 from scripts.gestion import GestionRessources, pause, prompt, choix_invalide
 from scripts.models import (
-    Enseignant, Etudiant, UE, Salle, Jour, Periode,
+    Enseignant, Etudiant, UE, Salle, Periode,
     EntreePlanning, )
 from packages.graphe import GrapheConflits
 from packages.coloration import ColoriageAlgorithmes
-from packages.affectation import GenerateurPlanning
-from packages.data_defaut import charger_donnees_defaut
+from packages.planning import GenerateurPlanning
+from scripts.data_defaut import charger_donnees_defaut
 
 
 class AppState:

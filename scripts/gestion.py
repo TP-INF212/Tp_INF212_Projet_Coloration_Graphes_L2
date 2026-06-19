@@ -302,7 +302,7 @@ class GestionRessources:
         contenu = "\n".join(lignes)
         print(contenu)
         if proposer_sauvegarde:
-            _proposer_sauvegarde(contenu, "output/liste_enseignants.txt")
+            _proposer_sauvegarde(contenu, "output/txt/liste_enseignants.txt")
         pause()
 
     # ══════════════════════════════════════════════════════════════════════════
@@ -376,7 +376,7 @@ class GestionRessources:
         contenu = "\n".join(lignes)
         print(contenu)
         if proposer_sauvegarde:
-            _proposer_sauvegarde(contenu, "output/liste_ues.txt")
+            _proposer_sauvegarde(contenu, "output/txt/liste_ues.txt")
 
     # Gestion des étudiants
     def _ajouter_etudiant(self) -> None:
@@ -446,7 +446,7 @@ class GestionRessources:
         contenu = "\n".join(lignes)
         print(contenu)
         if proposer_sauvegarde:
-            _proposer_sauvegarde(contenu, "output/liste_etudiants.txt")
+            _proposer_sauvegarde(contenu, "output/txt/liste_etudiants.txt")
         pause()
 
     # ══════════════════════════════════════════════════════════════════════════
@@ -510,7 +510,7 @@ class GestionRessources:
         contenu = "\n".join(lignes)
         print(contenu)
         if proposer_sauvegarde:
-            _proposer_sauvegarde(contenu, "output/liste_salles.txt")
+            _proposer_sauvegarde(contenu, "output/txt/liste_salles.txt")
         pause()
 
     # ══════════════════════════════════════════════════════════════════════════
@@ -593,7 +593,7 @@ class GestionRessources:
         contenu = "\n".join(lignes)
         print(contenu)
         if proposer_sauvegarde:
-            _proposer_sauvegarde(contenu, "output/liste_inscriptions.txt")
+            _proposer_sauvegarde(contenu, "output/txt/liste_inscriptions.txt")
         pause()
 
     # ══════════════════════════════════════════════════════════════════════════
@@ -663,7 +663,7 @@ class GestionRessources:
         contenu = "\n".join(lignes)
         print(contenu)
         if proposer_sauvegarde:
-            _proposer_sauvegarde(contenu, "output/liste_interdictions.txt")
+            _proposer_sauvegarde(contenu, "output/txt/liste_interdictions.txt")
         pause()
 
     # ══════════════════════════════════════════════════════════════════════════
@@ -720,6 +720,6 @@ class GestionRessources:
 
         contenu = "\n".join(lignes)
         print(contenu)
-        _proposer_sauvegarde(contenu, "output/recapitulatif_ressources.txt")
+        _proposer_sauvegarde(contenu, "output/txt/recapitulatif_ressources.txt")
         pause()
 
