@@ -1,3 +1,22 @@
+PLANNING DES EXAMENS — UNIVERSITÉ DE YAOUNDÉ I
+Période : Semestre 2
+================================================================================
+
+UE Code      Intitulé                       Créneau                Salle           Eff.  Surveillant
+----------------------------------------------------------------------------------------------------
+INF261       Système & Réseau               J01-C1 (7h)  A501              18  ESSOMBA Pauline
+MAT112       Théorie du plan dans R         J01-C1 (7h)  R105               5  FOUDA Marie
+INF251       Genie logiciel & Système d'i   J01-C2 (9h)  A350              18  OWONA Théodore
+INF212       Mathématiques discrètes        J01-C2 (9h)  A250              10  ESSOMBA Pauline
+MAT211       Algèbre linéaire               J01-C3 (11h)  A350              18  ABANDA Céline
+FBL211       Anglais/Francais               J01-C4 (13h)  A350              17  Sokeng Saurelle
+INF241       Architecture des ordinateurs   J01-C4 (13h)  A501              16  OWONA Théodore
+INF211       Modelisation UML               J02-C1 (7h)  A350              14  FOUDA Marie
+PPE212       Projet Professionnel de l'Et   J02-C1 (7h)  R105               7  BIKOI Cyrille
+INF221       Introduction aux bases de do   J02-C1 (7h)  A501               4  NKOMO Hélène
+INF231       Structure des données & comp   J02-C2 (9h)  A501              10  NKOMO Hélène
+
+====================================================================================================
 ══════════════════════════════════════════════════════════════════════
        RAPPORT D'AUDIT — PLANIFICATION DES EXAMENS
        Période : Semestre 2

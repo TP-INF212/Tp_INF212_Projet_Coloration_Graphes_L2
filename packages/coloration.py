@@ -60,7 +60,7 @@ class ColoriageAlgorithmes:
     @staticmethod
     def dsatur(graphe: GrapheConflits) -> dict[UE, int]:
         """
-        Heuristique DSATUR — généralement supérieure à Welsh-Powell
+        DSATUR : généralement supérieure à Welsh-Powell
         sur les graphes denses.
 
         Définition : Le degré de saturation d'un sommet v non coloré est le

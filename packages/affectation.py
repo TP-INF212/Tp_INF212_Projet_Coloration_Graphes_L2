@@ -288,11 +288,6 @@ class GenerateurPlanning:
           Lignes   → Créneaux (Jour × Index)
           Colonnes → Salles
           Cellules → Code UE + effectif (ou vide si aucun examen)
-
-        Le fichier est directement exploitable par le service des examens.
-
-        Args:
-            fichier : chemin de sortie du fichier CSV.
         """
         os.makedirs(os.path.dirname(fichier) if os.path.dirname(fichier) else ".", exist_ok=True)
 
@@ -307,10 +302,15 @@ class GenerateurPlanning:
         grille: dict[tuple[str, str], str] = {}
         for e in self.planning:
             cle = (str(e.creneau), e.salle.label)
-            grille[cle] = f"{e.ue.code} | {e.ue.effectif()} éts | {e.ue.filiere}"
+            grille[cle] = f"{e.ue.code} ({e.ue.filiere})"
 
-        with open(fichier, "w", newline="", encoding="utf-8-sig") as f:
-            writer = csv.writer(f, delimiter=";")
+        # 💡 MODIFICATION ICI : On utilise l'encodage natif Excel Windows ("cp1252")
+        with open(fichier, "w", newline="", encoding="cp1252") as f:
+
+            # On dit à Excel d'utiliser le point-virgule
+            f.write("sep=;\n")
+
+            writer = csv.writer(f, dialect='excel', delimiter=";")
 
             # En-tête
             writer.writerow(
@@ -324,7 +324,7 @@ class GenerateurPlanning:
                 for salle_label in salles_uniques:
                     contenu = grille.get((str(creneau), salle_label), "")
                     row.append(contenu)
-                    if contenu:
+                    if contenu != "":
                         nb_examens += 1
                 row.append(str(nb_examens))
                 writer.writerow(row)
@@ -333,11 +333,11 @@ class GenerateurPlanning:
             writer.writerow([])
             writer.writerow(
                 ["TOTAL examens planifiés"] +
-                [""] * len(salles_uniques) +
+                [" "] * len(salles_uniques) +
                 [str(len(self.planning))]
             )
 
-        print(f"  ✅ Planning exporté → {fichier}")
+        print(f"\t  ✅ Planning exporté: {fichier}")
 
     #  Exportation TXT du planning lisible
     def exporter_planning_txt(self, fichier: str = "output/txt/planning.txt") -> None:

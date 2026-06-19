@@ -232,7 +232,11 @@ def construire_graphe(app: AppState) -> None:
 
         if choix == "1":
             chemin = "output/images/graphe_sans_coloration.png"
-            app.graphe.visualiser(fichier=chemin, titre="Graphe de Conflits — Sans Coloration")
+            app.graphe.visualiser(
+                creneaux=[c.__str__() for c in app.periode.obtenir_tous_creneaux()],
+                fichier=chemin,
+                titre="Graphe de Conflits — Sans Coloration"
+            )
             print(f"\t  ✅ Image sauvegardée : {chemin}")
             pause()
             break
@@ -293,6 +297,7 @@ def colorier_graphe(app: AppState) -> None:
     if app.coloration_active and saisie_bool("\n  Générer la cartographie PNG colorée ?"):
         chemin = f"output/images/graphe_{app.algo_actif.lower().replace('-', '_')}.png"
         app.graphe.visualiser(
+            creneaux=[c.__str__() for c in app.periode.obtenir_tous_creneaux()],
             coloration=app.coloration_active,
             fichier=chemin,
             titre=f"Graphe de Conflits Coloré — {app.algo_actif}",
@@ -375,21 +380,24 @@ def exporter(app: AppState) -> None:
         pause()
         return
 
-    print("  [1] Exporter en CSV   (output/planning.csv)")
-    print("  [2] Exporter en TXT   (output/planning_detail.txt)")
+    print("  [1] Exporter en CSV")
+    print("  [2] Exporter en TXT")
     print("  [3] Les deux")
     print("  [0] Retour")
     choix = prompt()
 
-    chemin_csv = "output/csv/planing.csv"
-    chemin_txt = "output/txt/planing.txt"
+    chemin_csv = "output/csv/planning.csv"
+    chemin_txt = "output/txt/planning.txt"
     if choix == "1":
         app.generateur.exporter_planning_csv(f"{chemin_csv}")
+        pause()
     elif choix == "2":
         app.generateur.exporter_planning_txt(f"{chemin_txt}")
+        pause()
     elif choix == "3":
         app.generateur.exporter_planning_csv(f"{chemin_csv}")
         app.generateur.exporter_planning_txt(f"{chemin_txt}")
+        pause()
 
 
 # 7. Benchmark
@@ -486,7 +494,7 @@ def _ajouter_enseignant(app: AppState) -> None:
     if nom and prenom:
         ens = Enseignant(nom.upper(), prenom.capitalize())
         app.enseignants.append(ens)
-        print(f"  ✅ Enseignant ajouté : {ens}")
+        print(f"\t ✅ Enseignant ajouté : {ens}")
     else:
         print("  ⚠️  Nom et prénom obligatoires.")
     pause()
@@ -505,7 +513,7 @@ def _ajouter_etudiant(app: AppState) -> None:
         else:
             etud = Etudiant(mat, nom.upper(), prenom.capitalize())
             app.etudiants.append(etud)
-            print(f"  ✅ Étudiant ajouté : {etud}")
+            print(f"\t ✅ Étudiant ajouté : {etud}")
     else:
         print("  ⚠️  Tous les champs sont obligatoires.")
     pause()
@@ -534,7 +542,7 @@ def _ajouter_ue(app: AppState) -> None:
             ue = UE(code, intitule, filiere, ens, necessite_labo)
             app.ues.append(ue)
             app.reset_planning()
-            print(f"  ✅ UE ajoutée : {ue}")
+            print(f"\t ✅ UE ajoutée : {ue}")
     else:
         print("  ⚠️  Code, intitulé et filière obligatoires.")
     pause()
@@ -553,7 +561,7 @@ def _ajouter_salle(app: AppState) -> None:
         else:
             salle = Salle(label, capacite, est_labo)
             app.salles.append(salle)
-            print(f"  ✅ Salle ajoutée : {salle}")
+            print(f"\t ✅ Salle ajoutée : {salle}")
     else:
         print("  ⚠️  Label et capacité obligatoires.")
     pause()
@@ -583,7 +591,7 @@ def _inscrire_etudiant_ue(app: AppState) -> None:
         etudiant = disponibles[idx - 1]
         ue.etudiants.append(etudiant)
         app.reset_planning()
-        print(f"  ✅ {etudiant.nom} {etudiant.prenom} inscrit(e) à {ue.code} (effectif : {ue.effectif()})")
+        print(f"\t ✅ {etudiant.nom} {etudiant.prenom} inscrit(e) à {ue.code} (effectif : {ue.effectif()})")
     pause()
 
 
@@ -593,7 +601,7 @@ def _ajouter_jour(app: AppState) -> None:
     if date_str:
         nouveau_jour = Jour(date_str)
         app.periode.ajouter_jour(nouveau_jour)
-        print(f"  ✅ Jour ajouté : {nouveau_jour}")
+        print(f"\t ✅ Jour ajouté : {nouveau_jour}")
         print(f"  Période : {app.periode}")
     else:
         print("  ⚠️  La date est obligatoire.")
@@ -620,7 +628,7 @@ def _ajouter_interdiction(app: AppState) -> None:
         print(f"  ⚠️  L'interdiction {ue_a.code} ↔ {ue_b.code} existe déjà.")
     else:
         app.interdictions.append((ue_a, ue_b))
-        print(f"  ✅ Interdiction ajoutée : {ue_a.code} ↔ {ue_b.code}")
+        print(f"\t ✅ Interdiction ajoutée : {ue_a.code} ↔ {ue_b.code}")
     pause()
 
 
@@ -638,9 +646,9 @@ def _supprimer_ue(app: AppState) -> None:
             (a, b) for a, b in app.interdictions if a != ue and b != ue
         ]
         app.reset_planning()
-        print(f"  ✅ UE '{ue.code}' supprimée.")
+        print(f"\t ✅ UE '{ue.code}' supprimée.")
     else:
-        print("  Suppression annulée.")
+        print("\t ❌ Suppression annulée.")
     pause()
 
 

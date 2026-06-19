@@ -8,7 +8,7 @@ Implémente la classe GrapheConflits avec :
 """
 
 from __future__ import annotations
-from .models import UE
+from .models import UE, Creneau
 
 
 class GrapheConflits:
@@ -144,12 +144,8 @@ class GrapheConflits:
             )
             print(f"  {codes[i]:<{largeur}}{ligne}")
 
-    def visualiser(
-        self,
-        coloration: dict[UE, int] | None = None,
-        fichier: str = "output/graphe.png",
-        titre: str | None = None,
-    ) -> None:
+    def visualiser(self, creneaux: list[str], coloration: dict[UE, int] | None = None,
+                   fichier: str = "output/graphe.png", titre: str | None = None) -> None:
         """
         Génère une cartographie PNG du graphe de conflits.
 
@@ -203,10 +199,11 @@ class GrapheConflits:
             nb_couleurs = max(coloration.values()) + 1
             patches = [
                 mpatches.Patch(
-                    color=PALETTE[c % len(PALETTE)],
-                    label=f"Créneau {c + 1}",
+                    color=PALETTE[i % len(PALETTE)],
+                    # label=f"Créneau {c + 1}",
+                    label=creneaux[i]
                 )
-                for c in range(nb_couleurs)
+                for i in range(nb_couleurs)
             ]
         else:
             node_colors = ["#2E86AB"] * self.n
@@ -239,14 +236,14 @@ class GrapheConflits:
         # Nœuds
         nx.draw_networkx_nodes(
             G, pos, ax=ax,
-            node_color=node_colors, node_size=node_sizes,
-            edgecolors="#2C3E50", linewidths=1.5, alpha=0.95,
+            node_color=node_colors, node_size=3000,
+            edgecolors="#2C3E50", linewidths=2, alpha=0.95,
         )
         # Étiquettes
         labels_dict = {ue.code: ue.code for ue in self.ues}
         nx.draw_networkx_labels(
             G, pos, labels=labels_dict, ax=ax,
-            font_size=8, font_weight="bold", font_color="white",
+            font_size=12, font_weight="bold", font_color="white",
         )
 
         # Légende

@@ -121,12 +121,13 @@ class Creneau:
         index : position dans la journée, de 1 à 4 inclus.
     """
 
-    def __init__(self, horaire: str, jour_index: int, index_dans_jour: int):
+    def __init__(self, horaire: str, date_jour: str, jour_index: int, index_dans_jour: int):
         if not (1 <= index_dans_jour <= 4):
             raise ValueError(
                 f"index doit être compris entre 1 et 4, reçu : {index_dans_jour}"
             )
         self.horaire = horaire
+        self.date_jour = date_jour
         self.jour_index = jour_index
         self.index = index_dans_jour
 
@@ -156,7 +157,7 @@ class Creneau:
         return (self.jour_index, self.index) < (other.jour_index, other.index)
 
     def __str__(self) -> str:
-        return f"Jour {self.jour_index:02d} | C{self.index} ({self.horaire})"
+        return f"({self.horaire}) - {self.date_jour}"
 
     def __repr__(self) -> str:
         return f"Creneau(jour={self.jour_index}, idx={self.index}), horaire={self.horaire}"
@@ -180,7 +181,7 @@ class Jour:
             horaires = json.load(file, )
 
         self.creneaux = [
-            Creneau(jour_index=self.index, index_dans_jour=i, horaire=horaires[str(i)])
+            Creneau(horaire=horaires[str(i)], date_jour=self.date, jour_index=self.index, index_dans_jour=i)
             for i in range(1, 5)
         ]
 
